@@ -1,4 +1,5 @@
 import { Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
 const FounderSection = () => {
@@ -8,28 +9,44 @@ const FounderSection = () => {
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <ScrollReveal>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-6">The Visionary</p>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold font-display mb-4 tracking-tight">
+          <motion.h2
+            className="text-5xl md:text-7xl lg:text-8xl font-bold font-display mb-4 tracking-tight"
+            initial={{ opacity: 0, letterSpacing: "0.2em" }}
+            whileInView={{ opacity: 1, letterSpacing: "-0.02em" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
             SAHIL RAMTEKE
-          </h2>
+          </motion.h2>
           <p className="text-primary text-lg font-medium mb-8">Founder & Civic Innovation Architect</p>
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
             A visionary builder at the intersection of civic technology and participatory governance. 
-            Sahil is architecting the next generation of citizen-powered compliance infrastructure — 
-            systems that make cities smarter, governments more accountable, and citizens more empowered.
+            Sahil is architecting a future where every citizen has a stake in their city's well-being — 
+            and the tools to make a real difference.
           </p>
         </ScrollReveal>
 
         <ScrollReveal delay={0.3}>
           <div className="flex gap-4 justify-center">
-            <a href="#" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group">
+            <motion.a
+              href="#"
+              className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </a>
-            <a href="#" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group">
+            </motion.a>
+            <motion.a
+              href="#"
+              className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </a>
+            </motion.a>
           </div>
         </ScrollReveal>
       </div>
