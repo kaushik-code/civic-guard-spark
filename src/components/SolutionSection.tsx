@@ -1,4 +1,4 @@
-import { Camera, Cpu, UserCheck, ArrowRight } from "lucide-react";
+import { Camera, Cpu, UserCheck } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { motion } from "framer-motion";
 
@@ -7,19 +7,19 @@ const steps = [
     icon: Camera,
     step: "01",
     title: "Capture",
-    description: "Citizens report violations using their smartphone — photos, videos, and location data.",
+    description: "A citizen spots a violation — illegal parking, broken streetlight, traffic offense. They open CivicGuard, snap a photo or video, and the app auto-tags GPS location and timestamp.",
   },
   {
     icon: Cpu,
     step: "02",
     title: "AI Verification",
-    description: "AI validates timestamp, geolocation, license plate recognition, and runs fraud detection.",
+    description: "Our AI instantly validates the evidence: license plate recognition, geolocation cross-check, timestamp verification, and deep-learning fraud detection — all in under 10 seconds.",
   },
   {
     icon: UserCheck,
     step: "03",
     title: "Human Approval",
-    description: "Government officer reviews the AI-verified report and issues a fine if confirmed.",
+    description: "A government officer reviews the AI-verified report on their dashboard. If confirmed, an official fine is issued — and the citizen earns Civic Credits as a reward.",
   },
 ];
 
@@ -29,9 +29,12 @@ const SolutionSection = () => {
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest text-center mb-3">The Solution</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-center mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-center mb-4">
             How <span className="text-gradient-emerald">CivicGuard</span> Works
           </h2>
+          <p className="text-muted-foreground text-center mb-16 text-lg max-w-2xl mx-auto">
+            Three simple steps turn any citizen into a city guardian — with AI trust and government authority backing every report.
+          </p>
         </ScrollReveal>
 
         <div className="grid md:grid-cols-3 gap-8 relative">
@@ -59,14 +62,20 @@ const SolutionSection = () => {
 
           {steps.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.2}>
-              <div className="glass-card p-8 text-center group hover:glow-blue transition-all duration-500 relative">
+              <motion.div
+                className="glass-card p-8 text-center group hover:glow-blue transition-all duration-500 relative h-full"
+                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              >
                 <div className="text-5xl font-bold text-primary/10 font-display absolute top-4 right-6">{item.step}</div>
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                <motion.div
+                  className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors"
+                  whileHover={{ rotate: 5 }}
+                >
                   <item.icon className="w-8 h-8 text-primary" />
-                </div>
+                </motion.div>
                 <h3 className="text-2xl font-bold font-display mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-              </div>
+                <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
+              </motion.div>
             </ScrollReveal>
           ))}
         </div>
