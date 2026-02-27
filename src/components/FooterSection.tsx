@@ -17,10 +17,16 @@ const FooterSection = () => {
         </div>
 
         <div className="flex gap-3">
-          {[Linkedin, Twitter, Mail].map((Icon, i) => (
+          {[
+            { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/" },
+            { Icon: Twitter, href: "#" },
+            { Icon: Mail, href: "mailto:sahilramteke001@gmail.com" },
+          ].map(({ Icon, href }, i) => (
             <a
               key={i}
-              href="#"
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
               className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
             >
               <Icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />

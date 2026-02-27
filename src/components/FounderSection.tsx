@@ -32,7 +32,9 @@ const FounderSection = () => {
         <ScrollReveal delay={0.3}>
           <div className="flex gap-4 justify-center">
             <motion.a
-              href="#"
+              href="https://www.linkedin.com/in/sahil-r-aa104512a/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
