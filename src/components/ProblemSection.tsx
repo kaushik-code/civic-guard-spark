@@ -13,7 +13,7 @@ const problems = [
 const ProblemSection = () => {
   return (
     <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern opacity-10" />
+      <div className="absolute inset-0 grid-pattern opacity-5" />
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-center mb-4">
@@ -26,12 +26,12 @@ const ProblemSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {problems.map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.1}>
+            <ScrollReveal key={i} delay={i * 0.08}>
               <motion.div
-                className="glass-card p-6 group hover:border-primary/30 transition-all duration-300 h-full"
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="glass-card p-6 group hover:border-primary/30 transition-all duration-500 h-full"
+                whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
-                <item.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                <item.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform duration-300" />
                 <p className="text-foreground font-semibold text-lg mb-2">{item.label}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.detail}</p>
               </motion.div>

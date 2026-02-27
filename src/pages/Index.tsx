@@ -13,13 +13,21 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <HeroSection />
+      <div className="section-divider" />
       <ProblemSection />
+      <div className="section-divider" />
       <SolutionSection />
+      <div className="section-divider" />
       <CivicCreditsSection />
+      <div className="section-divider" />
       <TrustSection />
+      <div className="section-divider" />
       <MarketSection />
+      <div className="section-divider" />
       <WhyNowSection />
+      <div className="section-divider" />
       <FounderSection />
+      <div className="section-divider" />
       <InvestorCTASection />
       <FooterSection />
     </div>

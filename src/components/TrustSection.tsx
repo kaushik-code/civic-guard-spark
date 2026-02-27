@@ -27,15 +27,15 @@ const TrustSection = () => {
             <ScrollReveal key={i} delay={i * 0.1}>
               <motion.div
                 className="glass-card p-6 text-center group hover:glow-blue transition-all duration-500 h-full"
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
                 <motion.div
-                  className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors"
+                  className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-300"
                   whileHover={{ rotate: 8 }}
                 >
                   <f.icon className="w-7 h-7 text-primary" />
                 </motion.div>
-                <h4 className="font-bold text-lg font-display mb-2">{f.title}</h4>
+                <h4 className="font-bold text-lg font-display mb-2 text-foreground">{f.title}</h4>
                 <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
               </motion.div>
             </ScrollReveal>

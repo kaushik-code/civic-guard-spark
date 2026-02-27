@@ -8,7 +8,7 @@ const InvestorCTASection = () => {
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-20"
         style={{ background: "radial-gradient(ellipse, hsl(210 100% 55% / 0.4), transparent 70%)" }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
+        animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.25, 0.12] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -27,22 +27,25 @@ const InvestorCTASection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button
               className="btn-primary-glow text-base animate-pulse-glow"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Download Executive Summary
             </motion.button>
             <motion.button
               className="btn-outline-glow text-base"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Schedule Investor Discussion
             </motion.button>
             <motion.button
               className="btn-outline-glow text-base"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Partner With Us
             </motion.button>
