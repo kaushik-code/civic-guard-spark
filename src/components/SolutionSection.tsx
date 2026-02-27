@@ -41,39 +41,39 @@ const SolutionSection = () => {
           {/* Connection lines */}
           <div className="hidden md:block absolute top-1/2 left-1/3 w-1/3 h-px">
             <motion.div
-              className="h-full bg-gradient-to-r from-primary to-accent"
+              className="h-full"
+              style={{ background: "linear-gradient(90deg, hsl(210 100% 55%), hsl(160 70% 45%))", transformOrigin: "left" }}
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.5 }}
-              style={{ transformOrigin: "left" }}
+              transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
           <div className="hidden md:block absolute top-1/2 right-0 w-1/3 h-px" style={{ left: "66.6%" }}>
             <motion.div
-              className="h-full bg-gradient-to-r from-accent to-primary"
+              className="h-full"
+              style={{ background: "linear-gradient(90deg, hsl(160 70% 45%), hsl(210 100% 55%))" }}
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.8 }}
-              style={{ transformOrigin: "left" }}
+              transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
 
           {steps.map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.2}>
+            <ScrollReveal key={i} delay={i * 0.15}>
               <motion.div
                 className="glass-card p-8 text-center group hover:glow-blue transition-all duration-500 relative h-full"
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
                 <div className="text-5xl font-bold text-primary/10 font-display absolute top-4 right-6">{item.step}</div>
                 <motion.div
-                  className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors"
+                  className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors duration-300"
                   whileHover={{ rotate: 5 }}
                 >
                   <item.icon className="w-8 h-8 text-primary" />
                 </motion.div>
-                <h3 className="text-2xl font-bold font-display mb-3">{item.title}</h3>
+                <h3 className="text-2xl font-bold font-display mb-3 text-foreground">{item.title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
               </motion.div>
             </ScrollReveal>
