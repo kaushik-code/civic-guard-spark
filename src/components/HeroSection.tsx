@@ -1,10 +1,19 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import heroCity from "@/assets/hero-city.png";
 import ScrollReveal from "./ScrollReveal";
+import CivicGuardLogo from "./CivicGuardLogo";
+import ScheduleCallDialog from "./ScheduleCallDialog";
 
 const HeroSection = () => {
+  const [scheduleOpen, setScheduleOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Floating logo */}
+      <div className="absolute top-6 left-6 z-20">
+        <CivicGuardLogo size={36} />
+      </div>
       {/* Background image with Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
@@ -114,10 +123,13 @@ const HeroSection = () => {
             whileHover={{ scale: 1.06, y: -4 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            onClick={() => setScheduleOpen(true)}
           >
             Schedule Investor Call
           </motion.button>
         </motion.div>
+
+        <ScheduleCallDialog open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
 
         {/* Floating phone mockup */}
         <ScrollReveal delay={0.3}>
