@@ -42,41 +42,50 @@ const HeroSection = () => {
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <motion.div
             key={`p-${i}`}
-            className="absolute w-1.5 h-1.5 rounded-full"
+            className="absolute rounded-full"
             style={{
-              left: `${12 + (i * 11) % 76}%`,
-              top: `${20 + (i * 13) % 60}%`,
-              background: i % 2 === 0 ? "hsl(210 100% 55% / 0.5)" : "hsl(160 70% 45% / 0.5)",
+              left: `${8 + (i * 7.5) % 84}%`,
+              top: `${15 + (i * 11) % 70}%`,
+              width: i % 3 === 0 ? 3 : 2,
+              height: i % 3 === 0 ? 3 : 2,
+              background: i % 2 === 0 ? "hsl(210 100% 55% / 0.6)" : "hsl(160 70% 45% / 0.5)",
             }}
             animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.3, 1],
+              y: [0, -50 - i * 5, 0],
+              x: [0, (i % 2 === 0 ? 15 : -15), 0],
+              opacity: [0.15, 0.9, 0.15],
+              scale: [1, 1.5, 1],
             }}
-            transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
+            transition={{ duration: 5 + i * 0.4, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
           />
         ))}
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-bold font-display leading-tight tracking-tight mb-6"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          Turning Citizens Into{" "}
-          <span className="text-gradient-blue">City Guardians.</span>
-        </motion.h1>
+          <motion.h1
+            className="text-5xl md:text-7xl lg:text-8xl font-bold font-display leading-tight tracking-tight mb-6"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Turning Citizens Into{" "}
+            <span className="text-gradient-blue">City Guardians.</span>
+          </motion.h1>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-4 leading-relaxed">
             CivicGuard empowers everyday citizens to report civic violations — from illegal parking to broken infrastructure — using just their smartphone.
@@ -87,24 +96,24 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          className="flex flex-col sm:flex-row gap-5 justify-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.button
             className="btn-primary-glow text-base animate-pulse-glow"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            whileHover={{ scale: 1.06, y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             Request Investment Deck
           </motion.button>
           <motion.button
             className="btn-outline-glow text-base"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            whileHover={{ scale: 1.06, y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             Schedule Investor Call
           </motion.button>
@@ -115,7 +124,7 @@ const HeroSection = () => {
           <div className="animate-float mx-auto max-w-sm">
             <motion.div
               className="glass-card p-6 rounded-2xl"
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.04, rotateY: 3 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="flex items-center gap-3 mb-4">

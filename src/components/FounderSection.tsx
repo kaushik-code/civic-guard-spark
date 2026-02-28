@@ -1,6 +1,12 @@
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
+
+const socials = [
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/", label: "LinkedIn" },
+  { Icon: MessageCircle, href: "https://wa.me/4915563595530", label: "WhatsApp" },
+  { Icon: Mail, href: "mailto:sahilramteke001@gmail.com", label: "Email" },
+];
 
 const FounderSection = () => {
   return (
@@ -31,24 +37,21 @@ const FounderSection = () => {
 
         <ScrollReveal delay={0.3}>
           <div className="flex gap-4 justify-center">
-            <motion.a
-              href="https://www.linkedin.com/in/sahil-r-aa104512a/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
-            <motion.a
-              href="#"
-              className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
+            {socials.map(({ Icon, href, label }, i) => (
+              <motion.a
+                key={i}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={label}
+                className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
+                whileHover={{ scale: 1.15, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </motion.a>
+            ))}
           </div>
         </ScrollReveal>
       </div>
