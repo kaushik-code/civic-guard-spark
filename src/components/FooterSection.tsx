@@ -1,5 +1,6 @@
 import { Linkedin, Mail, MessageCircle, ArrowUpRight, MapPin, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import CivicGuardLogo from "./CivicGuardLogo";
 
 const socialLinks = [
   {
@@ -48,8 +49,8 @@ const FooterSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h3 className="text-2xl font-bold font-display text-gradient-blue mb-3">CivicGuard</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
+            <CivicGuardLogo size={32} />
+            <p className="text-muted-foreground text-sm leading-relaxed mt-3 mb-6 max-w-xs">
               Citizen-powered compliance infrastructure transforming how cities govern and citizens participate.
             </p>
             <div className="flex gap-3">
