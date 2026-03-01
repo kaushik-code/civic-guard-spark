@@ -25,7 +25,7 @@ const steps = [
 
 const SolutionSection = () => {
   return (
-    <section className="section-padding relative overflow-hidden">
+    <section id="solution" className="section-padding relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest text-center mb-3">The Solution</p>

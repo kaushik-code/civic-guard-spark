@@ -8,41 +8,40 @@ const socialLinks = [
     Icon: Linkedin,
     href: "https://www.linkedin.com/in/sahil-r-aa104512a/",
     label: "LinkedIn",
-    color: "hover:bg-[hsl(210,100%,55%)]/20 hover:border-[hsl(210,100%,55%)]/40 hover:shadow-[0_0_20px_hsl(210_100%_55%/0.3)]",
+    hoverBg: "hover:bg-[#0A66C2]/15 hover:border-[#0A66C2]/30",
+    hoverColor: "group-hover:text-[#0A66C2]",
   },
   {
     Icon: null,
     href: "https://wa.me/4915563595530",
     label: "WhatsApp",
-    color: "hover:bg-[hsl(142,70%,45%)]/20 hover:border-[hsl(142,70%,45%)]/40 hover:shadow-[0_0_20px_hsl(142_70%_45%/0.3)]",
+    hoverBg: "hover:bg-[#25D366]/15 hover:border-[#25D366]/30",
+    hoverColor: "group-hover:text-[#25D366]",
     isWhatsApp: true,
   },
   {
     Icon: Mail,
     href: "mailto:sahilramteke001@gmail.com",
     label: "Email",
-    color: "hover:bg-[hsl(0,80%,55%)]/20 hover:border-[hsl(0,80%,55%)]/40 hover:shadow-[0_0_20px_hsl(0_80%_55%/0.3)]",
+    hoverBg: "hover:bg-[#EA4335]/15 hover:border-[#EA4335]/30",
+    hoverColor: "group-hover:text-[#EA4335]",
   },
 ];
 
 const footerLinks = [
   { label: "Investment Deck", href: "#" },
-  { label: "How It Works", href: "#" },
-  { label: "Roadmap", href: "#" },
+  { label: "How It Works", href: "#solution" },
+  { label: "Roadmap", href: "#roadmap" },
   { label: "Contact", href: "mailto:sahilramteke001@gmail.com" },
 ];
 
 const FooterSection = () => {
   return (
     <footer className="relative overflow-hidden">
-      {/* Gradient top border */}
       <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(210 100% 55% / 0.4), hsl(160 70% 45% / 0.4), transparent)" }} />
-
-      {/* Glow background */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-10" style={{ background: "radial-gradient(ellipse, hsl(210 100% 55% / 0.5), transparent 70%)" }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-8">
-        {/* Main footer grid */}
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <motion.div
@@ -56,22 +55,22 @@ const FooterSection = () => {
               Citizen-powered compliance infrastructure transforming how cities govern and citizens participate.
             </p>
             <div className="flex gap-3">
-              {socialLinks.map(({ Icon, href, label, color, isWhatsApp }, i) => (
+              {socialLinks.map(({ Icon, href, label, hoverBg, hoverColor, isWhatsApp }, i) => (
                 <motion.a
                   key={i}
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  className={`w-11 h-11 rounded-xl border border-border bg-secondary/50 flex items-center justify-center transition-all duration-300 group ${color}`}
+                  className={`w-11 h-11 rounded-xl border border-border bg-secondary/50 flex items-center justify-center transition-all duration-300 group ${hoverBg}`}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   {isWhatsApp ? (
-                    <WhatsAppIcon size={16} className="text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                    <WhatsAppIcon size={16} className={`text-muted-foreground transition-colors duration-300 ${hoverColor}`} />
                   ) : Icon ? (
-                    <Icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                    <Icon className={`w-4 h-4 text-muted-foreground transition-colors duration-300 ${hoverColor}`} />
                   ) : null}
                 </motion.a>
               ))}
@@ -113,13 +112,17 @@ const FooterSection = () => {
               <p className="text-sm text-muted-foreground">
                 Founded by <span className="text-foreground font-semibold">Sahil Ramteke</span>
               </p>
-              <a href="mailto:sahilramteke001@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
-                <Mail className="w-4 h-4 text-primary" />
+              <a href="mailto:sahilramteke001@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#EA4335] transition-colors duration-300">
+                <Mail className="w-4 h-4 text-[#EA4335]" />
                 sahilramteke001@gmail.com
               </a>
-              <a href="https://wa.me/4915563595530" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
-                <WhatsAppIcon size={16} className="text-accent" />
+              <a href="https://wa.me/4915563595530" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#25D366] transition-colors duration-300">
+                <WhatsAppIcon size={16} className="text-[#25D366]" />
                 +49 15563 595530
+              </a>
+              <a href="https://www.linkedin.com/in/sahil-r-aa104512a/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#0A66C2] transition-colors duration-300">
+                <Linkedin className="w-4 h-4 text-[#0A66C2]" />
+                LinkedIn Profile
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
@@ -129,7 +132,6 @@ const FooterSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom bar */}
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} CivicGuard. All rights reserved.

@@ -4,9 +4,9 @@ import ScrollReveal from "./ScrollReveal";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 const socials = [
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/", label: "LinkedIn", glow: "hover:shadow-[0_0_20px_hsl(210_100%_55%/0.4)]" },
-  { Icon: null, href: "https://wa.me/4915563595530", label: "WhatsApp", glow: "hover:shadow-[0_0_20px_hsl(142_70%_45%/0.4)]", isWhatsApp: true },
-  { Icon: Mail, href: "mailto:sahilramteke001@gmail.com", label: "Email", glow: "hover:shadow-[0_0_20px_hsl(0_80%_55%/0.4)]" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/", label: "LinkedIn", brandColor: "#0A66C2", hoverBg: "hover:bg-[#0A66C2]/15" },
+  { Icon: null, href: "https://wa.me/4915563595530", label: "WhatsApp", brandColor: "#25D366", hoverBg: "hover:bg-[#25D366]/15", isWhatsApp: true },
+  { Icon: Mail, href: "mailto:sahilramteke001@gmail.com", label: "Email", brandColor: "#EA4335", hoverBg: "hover:bg-[#EA4335]/15" },
 ];
 
 const FounderSection = () => {
@@ -38,23 +38,26 @@ const FounderSection = () => {
 
         <ScrollReveal delay={0.3}>
           <div className="flex gap-4 justify-center">
-            {socials.map(({ Icon, href, label, glow, isWhatsApp }, i) => (
+            {socials.map(({ Icon, href, label, brandColor, hoverBg, isWhatsApp }, i) => (
               <motion.a
                 key={i}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
-                className={`w-12 h-12 rounded-xl border border-border bg-secondary/50 flex items-center justify-center transition-all duration-300 group ${glow}`}
+                className={`w-12 h-12 rounded-xl border border-border bg-secondary/50 flex items-center justify-center transition-all duration-300 group ${hoverBg}`}
                 whileHover={{ scale: 1.15, y: -4 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                style={{ "--brand": brandColor } as React.CSSProperties}
               >
                 {isWhatsApp ? (
-                  <WhatsAppIcon size={18} className="text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
-                ) : Icon ? (
-                  <Icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
-                ) : null}
+                  <WhatsAppIcon size={18} className="text-muted-foreground transition-colors duration-300 group-hover:text-[#25D366]" />
+                ) : Icon === Linkedin ? (
+                  <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-[#0A66C2]" />
+                ) : (
+                  <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-[#EA4335]" />
+                )}
               </motion.a>
             ))}
           </div>
