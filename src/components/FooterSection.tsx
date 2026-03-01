@@ -1,25 +1,27 @@
-import { Linkedin, Mail, MessageCircle, ArrowUpRight, MapPin, Phone } from "lucide-react";
+import { Linkedin, Mail, ArrowUpRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import CivicGuardLogo from "./CivicGuardLogo";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 const socialLinks = [
   {
     Icon: Linkedin,
     href: "https://www.linkedin.com/in/sahil-r-aa104512a/",
     label: "LinkedIn",
-    color: "hover:bg-[hsl(210,100%,55%)]/20 hover:border-[hsl(210,100%,55%)]/40",
+    color: "hover:bg-[hsl(210,100%,55%)]/20 hover:border-[hsl(210,100%,55%)]/40 hover:shadow-[0_0_20px_hsl(210_100%_55%/0.3)]",
   },
   {
-    Icon: MessageCircle,
+    Icon: null,
     href: "https://wa.me/4915563595530",
     label: "WhatsApp",
-    color: "hover:bg-[hsl(142,70%,45%)]/20 hover:border-[hsl(142,70%,45%)]/40",
+    color: "hover:bg-[hsl(142,70%,45%)]/20 hover:border-[hsl(142,70%,45%)]/40 hover:shadow-[0_0_20px_hsl(142_70%_45%/0.3)]",
+    isWhatsApp: true,
   },
   {
     Icon: Mail,
     href: "mailto:sahilramteke001@gmail.com",
     label: "Email",
-    color: "hover:bg-[hsl(0,80%,55%)]/20 hover:border-[hsl(0,80%,55%)]/40",
+    color: "hover:bg-[hsl(0,80%,55%)]/20 hover:border-[hsl(0,80%,55%)]/40 hover:shadow-[0_0_20px_hsl(0_80%_55%/0.3)]",
   },
 ];
 
@@ -54,7 +56,7 @@ const FooterSection = () => {
               Citizen-powered compliance infrastructure transforming how cities govern and citizens participate.
             </p>
             <div className="flex gap-3">
-              {socialLinks.map(({ Icon, href, label, color }, i) => (
+              {socialLinks.map(({ Icon, href, label, color, isWhatsApp }, i) => (
                 <motion.a
                   key={i}
                   href={href}
@@ -66,7 +68,11 @@ const FooterSection = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <Icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                  {isWhatsApp ? (
+                    <WhatsAppIcon size={16} className="text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                  ) : Icon ? (
+                    <Icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                  ) : null}
                 </motion.a>
               ))}
             </div>
@@ -112,7 +118,7 @@ const FooterSection = () => {
                 sahilramteke001@gmail.com
               </a>
               <a href="https://wa.me/4915563595530" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
-                <Phone className="w-4 h-4 text-accent" />
+                <WhatsAppIcon size={16} className="text-accent" />
                 +49 15563 595530
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">

@@ -1,11 +1,12 @@
-import { Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 const socials = [
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/", label: "LinkedIn" },
-  { Icon: MessageCircle, href: "https://wa.me/4915563595530", label: "WhatsApp" },
-  { Icon: Mail, href: "mailto:sahilramteke001@gmail.com", label: "Email" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/sahil-r-aa104512a/", label: "LinkedIn", glow: "hover:shadow-[0_0_20px_hsl(210_100%_55%/0.4)]" },
+  { Icon: null, href: "https://wa.me/4915563595530", label: "WhatsApp", glow: "hover:shadow-[0_0_20px_hsl(142_70%_45%/0.4)]", isWhatsApp: true },
+  { Icon: Mail, href: "mailto:sahilramteke001@gmail.com", label: "Email", glow: "hover:shadow-[0_0_20px_hsl(0_80%_55%/0.4)]" },
 ];
 
 const FounderSection = () => {
@@ -37,19 +38,23 @@ const FounderSection = () => {
 
         <ScrollReveal delay={0.3}>
           <div className="flex gap-4 justify-center">
-            {socials.map(({ Icon, href, label }, i) => (
+            {socials.map(({ Icon, href, label, glow, isWhatsApp }, i) => (
               <motion.a
                 key={i}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
-                className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors group"
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className={`w-12 h-12 rounded-xl border border-border bg-secondary/50 flex items-center justify-center transition-all duration-300 group ${glow}`}
+                whileHover={{ scale: 1.15, y: -4 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 500, damping: 15 }}
               >
-                <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                {isWhatsApp ? (
+                  <WhatsAppIcon size={18} className="text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                ) : Icon ? (
+                  <Icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
+                ) : null}
               </motion.a>
             ))}
           </div>
