@@ -10,7 +10,7 @@ const milestones = [
 
 const WhyNowSection = () => {
   return (
-    <section className="section-padding relative">
+    <section id="roadmap" className="section-padding relative">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest text-center mb-3">The Roadmap</p>
