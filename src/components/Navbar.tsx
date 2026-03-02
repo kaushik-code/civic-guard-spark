@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import CivicGuardLogo from "./CivicGuardLogo";
 import { Menu, X } from "lucide-react";
@@ -14,8 +14,7 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -44,11 +43,21 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Background layer */}
+      {/* Scroll progress bar */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute top-0 left-0 right-0 h-[2px] origin-left"
         style={{
-          opacity: bgOpacity,
+          scaleX: scrollYProgress,
+          background: "linear-gradient(90deg, hsl(210 100% 55%), hsl(190 100% 45%), hsl(160 70% 45%))",
+          boxShadow: "0 0 12px hsl(210 100% 55% / 0.5), 0 0 4px hsl(160 70% 45% / 0.3)",
+        }}
+      />
+
+      {/* Background layer */}
+      <div
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{
+          opacity: scrolled ? 1 : 0,
           background: "hsl(220 45% 6% / 0.85)",
         }}
       />
