@@ -9,11 +9,13 @@ import FounderSection from "@/components/FounderSection";
 import InvestorCTASection from "@/components/InvestorCTASection";
 import FooterSection from "@/components/FooterSection";
 import CustomCursor from "@/components/CustomCursor";
+import Navbar from "@/components/Navbar";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden cursor-none">
       <CustomCursor />
+      <Navbar />
       <HeroSection />
       <div className="section-divider" />
       <ProblemSection />

@@ -12,7 +12,7 @@ const problems = [
 
 const ProblemSection = () => {
   return (
-    <section className="section-padding relative overflow-hidden">
+    <section id="problem" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-5" />
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
