@@ -10,10 +10,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Floating logo */}
-      <div className="absolute top-6 left-6 z-20">
-        <CivicGuardLogo size={36} />
-      </div>
+      {/* Logo now in Navbar */}
       {/* Background image with Ken Burns */}
       <div className="absolute inset-0">
         <motion.img

@@ -7,12 +7,10 @@ interface Props {
 }
 
 const CivicGuardLogo = ({ size = 40, showText = true, className = "" }: Props) => {
-  const scale = size / 48;
-  
   return (
     <motion.div
-      className={`flex items-center gap-3 ${className}`}
-      whileHover={{ scale: 1.04 }}
+      className={`flex items-center gap-2.5 ${className}`}
+      whileHover={{ scale: 1.03 }}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
     >
       <svg
@@ -23,17 +21,17 @@ const CivicGuardLogo = ({ size = 40, showText = true, className = "" }: Props) =
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="cg-shield" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+          <linearGradient id="cg-main" x1="6" y1="4" x2="42" y2="46" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="50%" stopColor="#06B6D4" />
+            <stop offset="40%" stopColor="#06B6D4" />
             <stop offset="100%" stopColor="#10B981" />
           </linearGradient>
-          <linearGradient id="cg-inner" x1="16" y1="14" x2="32" y2="36" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#60A5FA" />
-            <stop offset="100%" stopColor="#34D399" />
+          <linearGradient id="cg-fill" x1="12" y1="8" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#10B981" stopOpacity="0.08" />
           </linearGradient>
-          <filter id="cg-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <filter id="cg-glow2" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -41,47 +39,53 @@ const CivicGuardLogo = ({ size = 40, showText = true, className = "" }: Props) =
           </filter>
         </defs>
 
-        {/* Shield outline */}
+        {/* Shield body */}
         <path
-          d="M24 3L42 12V26C42 36 33 43 24 46C15 43 6 36 6 26V12L24 3Z"
-          stroke="url(#cg-shield)"
-          strokeWidth="2"
-          fill="none"
-          filter="url(#cg-glow)"
+          d="M24 4L40 12V24C40 34 32 42 24 45C16 42 8 34 8 24V12L24 4Z"
+          fill="url(#cg-fill)"
+          stroke="url(#cg-main)"
+          strokeWidth="1.8"
           strokeLinejoin="round"
+          filter="url(#cg-glow2)"
         />
 
-        {/* Inner shield fill */}
+        {/* Inner C letterform / arc */}
         <path
-          d="M24 6L39 13.5V26C39 34.5 31.5 40.5 24 43C16.5 40.5 9 34.5 9 26V13.5L24 6Z"
-          fill="url(#cg-shield)"
-          opacity="0.08"
+          d="M30 17C28.5 15.5 26.5 14.5 24 14.5C19.5 14.5 16 18 16 22.5C16 27 19.5 30.5 24 30.5C26.5 30.5 28.5 29.5 30 28"
+          stroke="url(#cg-main)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
         />
 
-        {/* Check / network node - center */}
-        <circle cx="24" cy="22" r="3" fill="url(#cg-inner)" />
-        
-        {/* Connection nodes */}
-        <circle cx="16" cy="28" r="1.8" fill="#60A5FA" opacity="0.8" />
-        <circle cx="32" cy="28" r="1.8" fill="#34D399" opacity="0.8" />
-        <circle cx="24" cy="34" r="1.8" fill="#06B6D4" opacity="0.8" />
-        <circle cx="18" cy="17" r="1.5" fill="#60A5FA" opacity="0.6" />
-        <circle cx="30" cy="17" r="1.5" fill="#34D399" opacity="0.6" />
-        
-        {/* Connection lines */}
-        <line x1="24" y1="22" x2="16" y2="28" stroke="url(#cg-inner)" strokeWidth="0.8" opacity="0.5" />
-        <line x1="24" y1="22" x2="32" y2="28" stroke="url(#cg-inner)" strokeWidth="0.8" opacity="0.5" />
-        <line x1="24" y1="22" x2="24" y2="34" stroke="url(#cg-inner)" strokeWidth="0.8" opacity="0.5" />
-        <line x1="24" y1="22" x2="18" y2="17" stroke="url(#cg-inner)" strokeWidth="0.8" opacity="0.4" />
-        <line x1="24" y1="22" x2="30" y2="17" stroke="url(#cg-inner)" strokeWidth="0.8" opacity="0.4" />
-        <line x1="16" y1="28" x2="24" y2="34" stroke="url(#cg-inner)" strokeWidth="0.6" opacity="0.3" />
-        <line x1="32" y1="28" x2="24" y2="34" stroke="url(#cg-inner)" strokeWidth="0.6" opacity="0.3" />
+        {/* Guard dot */}
+        <circle cx="31" cy="22.5" r="2.5" fill="url(#cg-main)" />
+
+        {/* Signal rings */}
+        <path
+          d="M34 18.5C35.5 19.5 36.5 21 36.5 22.5C36.5 24 35.5 25.5 34 26.5"
+          stroke="#06B6D4"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.6"
+        />
+        <path
+          d="M36.5 16C38.5 17.5 40 20 40 22.5C40 25 38.5 27.5 36.5 29"
+          stroke="#10B981"
+          strokeWidth="1"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.35"
+        />
       </svg>
 
       {showText && (
-        <span className="text-xl font-bold font-display text-gradient-blue tracking-tight select-none">
-          CivicGuard
-        </span>
+        <div className="flex flex-col select-none leading-none">
+          <span className="text-lg font-bold font-display text-gradient-blue tracking-tight">
+            CivicGuard
+          </span>
+        </div>
       )}
     </motion.div>
   );

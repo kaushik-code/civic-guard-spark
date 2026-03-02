@@ -9,7 +9,7 @@ const stats = [
 
 const MarketSection = () => {
   return (
-    <section className="section-padding relative overflow-hidden">
+    <section id="market" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-10" />
       {/* Glowing orb background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20"
