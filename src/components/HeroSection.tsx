@@ -114,6 +114,7 @@ const HeroSection = () => {
             whileHover={{ scale: 1.06, y: -4 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            onClick={() => setDownloadOpen(true)}
           >
             Request Investment Deck
           </motion.button>
