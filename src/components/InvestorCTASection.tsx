@@ -6,6 +6,7 @@ import GatedDownloadModal from "./GatedDownloadModal";
 
 const InvestorCTASection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
