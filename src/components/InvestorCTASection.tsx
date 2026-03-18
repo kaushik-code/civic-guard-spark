@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
 import ScheduleCallDialog from "./ScheduleCallDialog";
+import GatedDownloadModal from "./GatedDownloadModal";
 
 const InvestorCTASection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
