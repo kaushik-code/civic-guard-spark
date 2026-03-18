@@ -4,6 +4,7 @@ import heroCity from "@/assets/hero-city.png";
 import ScrollReveal from "./ScrollReveal";
 import CivicGuardLogo from "./CivicGuardLogo";
 import ScheduleCallDialog from "./ScheduleCallDialog";
+import GatedDownloadModal from "./GatedDownloadModal";
 
 const HeroSection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
