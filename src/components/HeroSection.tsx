@@ -8,6 +8,7 @@ import GatedDownloadModal from "./GatedDownloadModal";
 
 const HeroSection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
