@@ -130,6 +130,7 @@ const HeroSection = () => {
         </motion.div>
 
         <ScheduleCallDialog open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+        <GatedDownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
 
         {/* Floating phone mockup */}
         <ScrollReveal delay={0.3}>

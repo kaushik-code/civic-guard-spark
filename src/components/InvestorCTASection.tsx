@@ -61,6 +61,7 @@ const InvestorCTASection = () => {
         </ScrollReveal>
 
         <ScheduleCallDialog open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+        <GatedDownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
       </div>
     </section>
   );
