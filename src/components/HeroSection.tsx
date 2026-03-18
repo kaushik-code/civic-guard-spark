@@ -4,9 +4,11 @@ import heroCity from "@/assets/hero-city.png";
 import ScrollReveal from "./ScrollReveal";
 import CivicGuardLogo from "./CivicGuardLogo";
 import ScheduleCallDialog from "./ScheduleCallDialog";
+import GatedDownloadModal from "./GatedDownloadModal";
 
 const HeroSection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -112,6 +114,7 @@ const HeroSection = () => {
             whileHover={{ scale: 1.06, y: -4 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            onClick={() => setDownloadOpen(true)}
           >
             Request Investment Deck
           </motion.button>
@@ -127,6 +130,7 @@ const HeroSection = () => {
         </motion.div>
 
         <ScheduleCallDialog open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+        <GatedDownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
 
         {/* Floating phone mockup */}
         <ScrollReveal delay={0.3}>

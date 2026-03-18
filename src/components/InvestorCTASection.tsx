@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
 import ScheduleCallDialog from "./ScheduleCallDialog";
+import GatedDownloadModal from "./GatedDownloadModal";
 
 const InvestorCTASection = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
@@ -34,6 +36,7 @@ const InvestorCTASection = () => {
               whileHover={{ scale: 1.06, y: -4 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              onClick={() => setDownloadOpen(true)}
             >
               Download Executive Summary
             </motion.button>
@@ -58,6 +61,7 @@ const InvestorCTASection = () => {
         </ScrollReveal>
 
         <ScheduleCallDialog open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+        <GatedDownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
       </div>
     </section>
   );
