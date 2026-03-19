@@ -1,42 +1,31 @@
-import { Hono } from "https://deno.land/x/hono@v4.3.4/mod.ts";
-
-const app = new Hono();
-
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-app.options('/*', (c) => c.json(null, 200, corsHeaders));
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
 
-app.post('/', async (c) => {
   try {
-    const { name, email, company, document } = await c.req.json();
+    const { name, email, company, document } = await req.json();
 
     if (!name || !email) {
-      return c.json({ error: 'Name and email are required' }, 400, corsHeaders);
+      return new Response(JSON.stringify({ error: 'Name and email are required' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
     const companyText = company || 'Not specified';
 
-    // Send WhatsApp notification via WhatsApp API
-    const whatsappMessage = `🚀 *New Lead Alert!*\n\n📄 *Document:* ${document || 'MVP Walkthrough'}\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n🏢 *Company:* ${companyText}\n🕐 *Time:* ${timestamp} IST`;
-
-    const whatsappNumber = '4915563595530';
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-
-    // Use WhatsApp Click-to-Chat API (opens chat, but for server-side we log it)
-    // For actual WhatsApp notifications, we'll use the Supabase database trigger approach
-    console.log(`WhatsApp notification for: ${whatsappNumber}`);
-    console.log(`Message: ${whatsappMessage}`);
-
-    // Send email notification using Supabase's built-in email
+    // Store lead in database
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-      // Store lead in database
       const dbResponse = await fetch(`${SUPABASE_URL}/rest/v1/download_leads`, {
         method: 'POST',
         headers: {
@@ -51,22 +40,40 @@ app.post('/', async (c) => {
       if (!dbResponse.ok) {
         const errText = await dbResponse.text();
         console.error('DB insert failed:', errText);
+      } else {
+        console.log(`✅ Lead saved: ${name} (${email}) from ${companyText}`);
       }
     }
 
-    // Return WhatsApp deep link for client-side notification trigger
+    // Build WhatsApp notification URL
+    const whatsappMessage = `🚀 *New Lead Alert!*\n\n📄 *Document:* ${document || 'MVP Walkthrough'}\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n🏢 *Company:* ${companyText}\n🕐 *Time:* ${timestamp} IST`;
+    const whatsappNumber = '4915563595530';
+    const encodedMessage = encodeURIComponent(whatsappMessage);
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
 
-    return c.json({
+    // Build mailto link for email notification
+    const emailSubject = encodeURIComponent(`🚀 New CivicGuard Lead: ${name}`);
+    const emailBody = encodeURIComponent(`New Download Lead\n\nName: ${name}\nEmail: ${email}\nCompany: ${companyText}\nDocument: ${document || 'MVP Walkthrough'}\nTime: ${timestamp} IST`);
+    const emailNotifyUrl = `mailto:sahilramteke001@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+    console.log(`📧 Email notify URL generated for: sahilramteke001@gmail.com`);
+    console.log(`📱 WhatsApp notify URL generated for: +${whatsappNumber}`);
+
+    return new Response(JSON.stringify({
       success: true,
       message: 'Lead captured successfully',
       whatsappNotifyUrl: whatsappUrl,
-    }, 200, corsHeaders);
+      emailNotifyUrl: emailNotifyUrl,
+    }), {
+      status: 200,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
 
   } catch (error) {
     console.error('Error processing lead:', error);
-    return c.json({ error: 'Internal server error' }, 500, corsHeaders);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   }
 });
-
-Deno.serve(app.fetch);
