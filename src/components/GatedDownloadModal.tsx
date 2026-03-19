@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, User, Mail, Building2, ArrowRight, CheckCircle } from "lucide-react";
+import { X, Download, User, Mail, Building2, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Props {
   open: boolean;
@@ -12,6 +13,7 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
 
   const validate = () => {
@@ -23,13 +25,36 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
+    setLoading(true);
+
+    try {
+      // Call edge function to store lead and get WhatsApp notify URL
+      const { data, error } = await supabase.functions.invoke('notify-lead', {
+        body: {
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || null,
+          document: 'MVP-Walkthrough',
+        },
+      });
+
+      if (error) {
+        console.error('Lead notification error:', error);
+      } else {
+        console.log('Lead captured successfully');
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+    }
+
+    setLoading(false);
     setSubmitted(true);
 
-    // Trigger download after brief delay
+    // Trigger PDF download
     setTimeout(() => {
       const link = document.createElement("a");
       link.href = "/CivicGuard-MVP-Walkthrough.pdf";
@@ -176,13 +201,23 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
 
                     <motion.button
                       type="submit"
-                      className="btn-primary-glow w-full text-sm flex items-center justify-center gap-2 mt-2"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
+                      disabled={loading}
+                      className="btn-primary-glow w-full text-sm flex items-center justify-center gap-2 mt-2 disabled:opacity-60"
+                      whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -2 }}
+                      whileTap={{ scale: loading ? 1 : 0.98 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     >
-                      Download MVP Walkthrough
-                      <ArrowRight className="w-4 h-4" />
+                      {loading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Download MVP Walkthrough
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
                     </motion.button>
 
                     <p className="text-[10px] text-muted-foreground/50 text-center mt-2">
