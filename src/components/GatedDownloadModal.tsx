@@ -25,13 +25,44 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
+    setLoading(true);
+
+    try {
+      // Call edge function to store lead and get WhatsApp notify URL
+      const { data, error } = await supabase.functions.invoke('notify-lead', {
+        body: {
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || null,
+          document: 'MVP-Walkthrough',
+        },
+      });
+
+      if (error) {
+        console.error('Lead notification error:', error);
+      }
+
+      // Send WhatsApp notification by opening in background
+      if (data?.whatsappNotifyUrl) {
+        // Create a hidden iframe to trigger WhatsApp notification silently
+        // This won't work server-side, so we also send an email alert below
+        const notifyWindow = window.open(data.whatsappNotifyUrl, '_blank', 'width=1,height=1');
+        if (notifyWindow) {
+          setTimeout(() => notifyWindow.close(), 3000);
+        }
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+    }
+
+    setLoading(false);
     setSubmitted(true);
 
-    // Trigger download after brief delay
+    // Trigger PDF download
     setTimeout(() => {
       const link = document.createElement("a");
       link.href = "/CivicGuard-MVP-Walkthrough.pdf";
