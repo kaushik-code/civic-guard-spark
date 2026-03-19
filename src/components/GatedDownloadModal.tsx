@@ -44,16 +44,8 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
 
       if (error) {
         console.error('Lead notification error:', error);
-      }
-
-      // Send WhatsApp notification by opening in background
-      if (data?.whatsappNotifyUrl) {
-        // Create a hidden iframe to trigger WhatsApp notification silently
-        // This won't work server-side, so we also send an email alert below
-        const notifyWindow = window.open(data.whatsappNotifyUrl, '_blank', 'width=1,height=1');
-        if (notifyWindow) {
-          setTimeout(() => notifyWindow.close(), 3000);
-        }
+      } else {
+        console.log('Lead captured successfully');
       }
     } catch (err) {
       console.error('Submission error:', err);
