@@ -13,6 +13,7 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
 
   const validate = () => {
