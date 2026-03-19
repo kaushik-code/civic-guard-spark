@@ -209,13 +209,23 @@ const GatedDownloadModal = ({ open, onClose }: Props) => {
 
                     <motion.button
                       type="submit"
-                      className="btn-primary-glow w-full text-sm flex items-center justify-center gap-2 mt-2"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
+                      disabled={loading}
+                      className="btn-primary-glow w-full text-sm flex items-center justify-center gap-2 mt-2 disabled:opacity-60"
+                      whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -2 }}
+                      whileTap={{ scale: loading ? 1 : 0.98 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     >
-                      Download MVP Walkthrough
-                      <ArrowRight className="w-4 h-4" />
+                      {loading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Download MVP Walkthrough
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
                     </motion.button>
 
                     <p className="text-[10px] text-muted-foreground/50 text-center mt-2">
