@@ -180,7 +180,7 @@ const FooterSection = () => {
                       Connect
                     </a>
                     <a
-                      href="mailto:kaushik@example.com"
+                      href="mailto:kaushik.khobragade@outlook.com"
                       className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-secondary border border-border text-foreground text-xs font-medium hover:bg-accent transition-colors duration-200"
                     >
                       <Mail className="w-3.5 h-3.5" />
