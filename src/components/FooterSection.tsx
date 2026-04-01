@@ -1,4 +1,4 @@
-import { Linkedin, Mail, ArrowUpRight, MapPin } from "lucide-react";
+import { Linkedin, Mail, ArrowUpRight, MapPin, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 import CivicGuardLogo from "./CivicGuardLogo";
 import WhatsAppIcon from "./WhatsAppIcon";
