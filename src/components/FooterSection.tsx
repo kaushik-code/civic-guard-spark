@@ -1,4 +1,4 @@
-import { Linkedin, Mail, ArrowUpRight, MapPin } from "lucide-react";
+import { Linkedin, Mail, ArrowUpRight, MapPin, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 import CivicGuardLogo from "./CivicGuardLogo";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -136,6 +136,62 @@ const FooterSection = () => {
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} CivicGuard. All rights reserved.
           </p>
+
+          {/* Built by credit with hover card */}
+          <div className="relative group/dev">
+            <p className="text-xs text-muted-foreground flex items-center gap-1.5 cursor-pointer">
+              <Code2 className="w-3 h-3" />
+              Built & maintained by{" "}
+              <span className="text-foreground font-semibold hover:text-primary transition-colors duration-300">
+                Kaushik Khobragade
+              </span>
+            </p>
+
+            {/* Hover card */}
+            <motion.div
+              className="absolute bottom-full right-0 mb-3 w-72 origin-bottom-right pointer-events-none group-hover/dev:pointer-events-auto"
+              initial={{ opacity: 0, scale: 0.9, y: 8 }}
+              whileInView={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{ opacity: 0 }}
+            >
+              <div className="opacity-0 group-hover/dev:opacity-100 scale-95 group-hover/dev:scale-100 transition-all duration-300 ease-out">
+                <div className="rounded-xl border border-border bg-card/95 backdrop-blur-xl p-5 shadow-2xl shadow-primary/10">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-lg shrink-0">
+                      KK
+                    </div>
+                    <div>
+                      <h5 className="text-sm font-bold text-foreground">Kaushik Khobragade</h5>
+                      <p className="text-xs text-primary font-medium">DevOps Engineer</p>
+                      <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+                        Designed, built & maintains this website end-to-end.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <a
+                      href="https://www.linkedin.com/in/kaushik-khobragade"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#0A66C2]/10 border border-[#0A66C2]/20 text-[#0A66C2] text-xs font-medium hover:bg-[#0A66C2]/20 transition-colors duration-200"
+                    >
+                      <Linkedin className="w-3.5 h-3.5" />
+                      Connect
+                    </a>
+                    <a
+                      href="mailto:kaushik@example.com"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-secondary border border-border text-foreground text-xs font-medium hover:bg-accent transition-colors duration-200"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      Contact
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
           <p className="text-xs text-muted-foreground">
             Building the future of <span className="text-gradient-blue font-semibold">civic infrastructure</span>
           </p>
