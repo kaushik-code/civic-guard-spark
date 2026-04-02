@@ -1,0 +1,18 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cg-main" x1="6" y1="4" x2="42" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="40%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="cg-fill" x1="12" y1="8" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 4L40 12V24C40 34 32 42 24 45C16 42 8 34 8 24V12L24 4Z" fill="url(#cg-fill)" stroke="url(#cg-main)" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M30 17C28.5 15.5 26.5 14.5 24 14.5C19.5 14.5 16 18 16 22.5C16 27 19.5 30.5 24 30.5C26.5 30.5 28.5 29.5 30 28" stroke="url(#cg-main)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="31" cy="22.5" r="2.5" fill="url(#cg-main)"/>
+  <path d="M34 18.5C35.5 19.5 36.5 21 36.5 22.5C36.5 24 35.5 25.5 34 26.5" stroke="#06B6D4" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M36.5 16C38.5 17.5 40 20 40 22.5C40 25 38.5 27.5 36.5 29" stroke="#10B981" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.35"/>
+</svg>
