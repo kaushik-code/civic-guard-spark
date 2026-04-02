@@ -152,9 +152,11 @@ const FooterSection = () => {
             <HoverCardContent side="top" align="end" className="w-80 rounded-xl border border-border bg-card/95 backdrop-blur-xl p-5 shadow-2xl shadow-primary/10">
               <div className="flex items-start gap-4">
                 <a href="https://www.linkedin.com/in/kaushik-khobragade" target="_blank" rel="noopener noreferrer" className="shrink-0">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-lg">
-                    KK
-                  </div>
+                  <img
+                    src="https://www.gravatar.com/avatar/dfd1cb4715a9c6cc3640df909cab63fd?s=112&d=mp"
+                    alt="Kaushik Khobragade"
+                    className="w-14 h-14 rounded-xl object-cover"
+                  />
                 </a>
                 <div className="min-w-0">
                   <a href="https://www.linkedin.com/in/kaushik-khobragade" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-foreground hover:text-primary transition-colors">
