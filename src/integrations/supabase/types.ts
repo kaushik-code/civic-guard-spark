@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      call_requests: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          notes: string | null
+          preferred_date: string | null
+          preferred_slot: string | null
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          notes?: string | null
+          preferred_date?: string | null
+          preferred_slot?: string | null
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          preferred_date?: string | null
+          preferred_slot?: string | null
+        }
+        Relationships: []
+      }
       download_leads: {
         Row: {
           company: string | null
