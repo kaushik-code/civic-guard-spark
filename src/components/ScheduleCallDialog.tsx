@@ -115,7 +115,7 @@ const ScheduleCallDialog = ({ open, onClose }: Props) => {
           {/* Backdrop */}
           <motion.div
             className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-            onClick={onClose}
+            onClick={handleCloseInner}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -130,7 +130,7 @@ const ScheduleCallDialog = ({ open, onClose }: Props) => {
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <button
-              onClick={onClose}
+              onClick={handleCloseInner}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="w-5 h-5" />
@@ -142,73 +142,134 @@ const ScheduleCallDialog = ({ open, onClose }: Props) => {
               </div>
               <div>
                 <h3 className="text-lg font-bold font-display text-foreground">Schedule Investor Call</h3>
-                <p className="text-xs text-muted-foreground">All times in IST (Indian Standard Time)</p>
+                <p className="text-xs text-muted-foreground">
+                  {step === "details" ? "Share your details to view available slots" : "All times in IST (Indian Standard Time)"}
+                </p>
               </div>
             </div>
 
-            <p className="text-sm text-muted-foreground mb-1">
-              <Clock className="w-3.5 h-3.5 inline mr-1" />
-              Weekdays: 10:00 AM – 12:00 PM IST &nbsp;·&nbsp; Weekends: 4:00 PM – 6:00 PM IST
-            </p>
-
-            {/* Date selection */}
-            <p className="text-sm font-semibold text-foreground mt-5 mb-3">Select a date</p>
-            <div className="flex flex-wrap gap-2 mb-5">
-              {days.map((d, i) => {
-                const active = selectedDate?.toDateString() === d.toDateString();
-                const weekend = isWeekend(d);
-                return (
-                  <motion.button
-                    key={i}
-                    onClick={() => setSelectedDate(d)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium transition-all border ${
-                      active
-                        ? "bg-primary/20 border-primary/50 text-primary"
-                        : "border-border bg-secondary/30 text-muted-foreground hover:border-primary/30"
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="block">{formatDate(d)}</span>
-                    <span className={`text-[10px] ${weekend ? "text-accent" : "text-muted-foreground/60"}`}>
-                      {weekend ? "Weekend" : "Weekday"}
-                    </span>
-                  </motion.button>
-                );
-              })}
-            </div>
-
-            {/* Time slots */}
-            {selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
+            {step === "details" && (
+              <motion.form
+                onSubmit={handleDetailsSubmit}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                className="space-y-4"
               >
-                <p className="text-sm font-semibold text-foreground mb-3">Pick a time slot</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {slots.map((slot) => {
-                    const url = buildGoogleCalendarUrl(selectedDate, slot);
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Full Name *</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Jane Investor"
+                    maxLength={100}
+                    className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/20 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Work Email *</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="jane@venture.capital"
+                    maxLength={255}
+                    className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/20 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Company / Fund</label>
+                  <input
+                    type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    placeholder="Sequoia Capital"
+                    maxLength={100}
+                    className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/20 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                  />
+                </div>
+                {error && <p className="text-xs text-destructive">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary-glow w-full text-sm disabled:opacity-60"
+                >
+                  {submitting ? "Saving..." : "Continue to Time Slots"}
+                </button>
+                <p className="text-[10px] text-muted-foreground/50 text-center">
+                  We'll only use this to coordinate your investor call.
+                </p>
+              </motion.form>
+            )}
+
+            {step === "schedule" && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <p className="text-sm text-muted-foreground mb-1">
+                  <Clock className="w-3.5 h-3.5 inline mr-1" />
+                  Weekdays: 10:00 AM – 12:00 PM IST &nbsp;·&nbsp; Weekends: 4:00 PM – 6:00 PM IST
+                </p>
+
+                <p className="text-sm font-semibold text-foreground mt-5 mb-3">Select a date</p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {days.map((d, i) => {
+                    const active = selectedDate?.toDateString() === d.toDateString();
+                    const weekend = isWeekend(d);
                     return (
-                      <motion.a
-                        key={slot}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border bg-secondary/20 text-sm font-medium text-foreground hover:border-primary/50 hover:bg-primary/10 transition-all group"
-                        whileHover={{ scale: 1.03, y: -2 }}
-                        whileTap={{ scale: 0.97 }}
+                      <motion.button
+                        key={i}
+                        onClick={() => setSelectedDate(d)}
+                        className={`px-3 py-2 rounded-xl text-xs font-medium transition-all border ${
+                          active
+                            ? "bg-primary/20 border-primary/50 text-primary"
+                            : "border-border bg-secondary/30 text-muted-foreground hover:border-primary/30"
+                        }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        <Clock className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                        {slot} IST
-                        <ExternalLink className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary transition-colors" />
-                      </motion.a>
+                        <span className="block">{formatDate(d)}</span>
+                        <span className={`text-[10px] ${weekend ? "text-accent" : "text-muted-foreground/60"}`}>
+                          {weekend ? "Weekend" : "Weekday"}
+                        </span>
+                      </motion.button>
                     );
                   })}
                 </div>
-                <p className="text-xs text-muted-foreground/60 mt-3 text-center">
-                  Clicking a slot opens Google Calendar to create the invite
-                </p>
+
+                {selectedDate && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p className="text-sm font-semibold text-foreground mb-3">Pick a time slot</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {slots.map((slot) => {
+                        const url = buildGoogleCalendarUrl(selectedDate, slot);
+                        return (
+                          <motion.a
+                            key={slot}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border bg-secondary/20 text-sm font-medium text-foreground hover:border-primary/50 hover:bg-primary/10 transition-all group"
+                            whileHover={{ scale: 1.03, y: -2 }}
+                            whileTap={{ scale: 0.97 }}
+                          >
+                            <Clock className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                            {slot} IST
+                            <ExternalLink className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary transition-colors" />
+                          </motion.a>
+                        );
+                      })}
+                    </div>
+                    <p className="text-xs text-muted-foreground/60 mt-3 text-center">
+                      Clicking a slot opens Google Calendar to create the invite
+                    </p>
+                  </motion.div>
+                )}
               </motion.div>
             )}
           </motion.div>
