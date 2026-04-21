@@ -4,7 +4,7 @@ import SolutionSection from "@/components/SolutionSection";
 import CivicCreditsSection from "@/components/CivicCreditsSection";
 import TrustSection from "@/components/TrustSection";
 import MarketSection from "@/components/MarketSection";
-import ROICalculator from "@/components/ROICalculator";
+import PilotCitiesSection from "@/components/PilotCitiesSection";
 import WhyNowSection from "@/components/WhyNowSection";
 import FounderSection from "@/components/FounderSection";
 import InvestorCTASection from "@/components/InvestorCTASection";
@@ -30,7 +30,7 @@ const Index = () => {
       <div className="section-divider" />
       <MarketSection />
       <div className="section-divider" />
-      <ROICalculator />
+      <PilotCitiesSection />
       <div className="section-divider" />
       <WhyNowSection />
       <div className="section-divider" />
