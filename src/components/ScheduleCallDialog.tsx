@@ -57,6 +57,12 @@ interface Props {
 
 const ScheduleCallDialog = ({ open, onClose }: Props) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [step, setStep] = useState<"details" | "schedule">("details");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const days = getNextDays(10);
 
   const slots = selectedDate
@@ -64,6 +70,38 @@ const ScheduleCallDialog = ({ open, onClose }: Props) => {
       ? WEEKEND_SLOTS
       : WEEKDAY_SLOTS
     : [];
+
+  const handleCloseInner = () => {
+    onClose();
+    setTimeout(() => {
+      setStep("details");
+      setSelectedDate(null);
+      setName("");
+      setEmail("");
+      setCompany("");
+      setError("");
+    }, 300);
+  };
+
+  const handleDetailsSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (!name.trim()) return setError("Name is required");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setError("Valid email is required");
+
+    setSubmitting(true);
+    try {
+      await supabase.from("call_requests").insert({
+        name: name.trim(),
+        email: email.trim(),
+        company: company.trim() || null,
+      });
+    } catch (err) {
+      console.error("call_requests insert failed", err);
+    }
+    setSubmitting(false);
+    setStep("schedule");
+  };
 
   return (
     <AnimatePresence>
